@@ -3,18 +3,19 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 
-// createRoot(document.getElementById('root')!).render(
-//   <StrictMode>
-//     <App />
-//   </StrictMode>,
-// )
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
 import { initGlobalState, registerMicroApps, start } from 'qiankun';
 const appData = {
   user: '桃良长安',
-  setUser: (newUser) => {
+  setUser: (newUser:string) => {
     console.log('User changed in main app:', newUser);
     appData.user = newUser;  // 更新主应用中的状态
   }
+  
 };
 registerMicroApps([
   {
@@ -31,7 +32,7 @@ registerMicroApps([
     props: { ...appData },
   }
 ]);
-const {onGlobalStateChange,setGlobalState,offGlobalStateChange} = initGlobalState({user: 'taoan'});
+const {onGlobalStateChange} = initGlobalState({user: 'taoan'});
 onGlobalStateChange((state, prev) => {
   console.log('主应用监听到状态改变', state, prev);
 })
